@@ -1,0 +1,45 @@
+# Credentials og hemmeligheder
+.env
+.credentials.json
+*.key
+*.pem
+
+# Claude interne filer
+.claude/cache/
+.claude/sessions/
+.claude/projects/
+.claude/backups/
+.claude/session-env/
+.claude/shell-snapshots/
+.claude/.credentials.json
+.claude/history.jsonl
+.claude/policy-limits.json
+.claude/remote-settings.json
+.claude/mcp-needs-auth-cache.json
+.claude/plugins/
+
+# Mail-agent data (emails, køer, state)
+mail-agent/inbox/
+mail-agent/queue.jsonl
+mail-agent/queue.jsonl.*
+mail-agent/state.json
+mail-agent/state.json.*
+mail-agent/draft_state.json
+mail-agent/draft_state.json.*
+mail-agent/drafts/
+mail-agent/logs/
+mail-agent/training/
+mail-agent/transcripts/
+mail-agent/approved/
+mail-agent/venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Skills interne filer
+skills/**/.clawhub/
+
+# System
+.DS_Store

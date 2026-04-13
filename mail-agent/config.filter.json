@@ -1,0 +1,82 @@
+{
+  "my_email": "vh@essdenmark.dk",
+  "block_sender_contains": [
+    "noreply",
+    "no-reply",
+    "do-not-reply",
+    "donotreply",
+    "account-security",
+    "microsoft",
+    "maton",
+    "close.com",
+    "hostinger",
+
+    "mailchimp",
+    "sendgrid",
+    "mandrill",
+    "hubspot",
+    "salesforce",
+    "pardot",
+
+    "campaign",
+    "newsletter",
+    "events",
+    "eventbrite",
+    "byggematerialer"
+  ],
+  "block_subject_contains": [
+    "security code",
+    "sikkerhedskode",
+    "authentication code",
+    "password",
+    "nyt logon",
+    "new sign in",
+    "verify",
+    "otp",
+
+    "re-build website",
+    "seo",
+    "marketing",
+    "lead generation",
+
+    "newsletter",
+    "nyhedsbrev",
+    "webinar",
+    "invitation",
+    "inviterer",
+    "tilmelding",
+    "tilmeld",
+    "seminar",
+    "konference",
+    "event",
+    "arrangement",
+    "workshop",
+
+    "unsubscribe",
+    "afmeld",
+    "opdater dine præferencer",
+    "manage preferences",
+
+    "autosvar",
+    "out of office",
+    "automatic reply"
+  ],
+  "block_body_contains": [
+    "unsubscribe",
+    "afmeld",
+    "manage preferences",
+    "view in browser",
+    "se i browser",
+    "this email was sent",
+    "do not reply",
+    "list-unsubscribe",
+    "marketing permissions",
+    "click here",
+    "utm_",
+    "nyhedsbrev",
+    "temabestemt nyhedsbrev",
+    "iFokus"
+  ],
+  "allow_domains": [],
+  "require_human_name": true
+}
