@@ -43,8 +43,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/victor/bin/auto-branch.sh",
-            "timeout": 30,
+            "command": "nohup /home/victor/bin/auto-branch.sh > /tmp/auto-branch.log 2>&1 &",
+            "timeout": 5,
             "statusMessage": "Synkroniserer ændringer til GitHub...",
             "async": true
           }

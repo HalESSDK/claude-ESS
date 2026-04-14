@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os, json, urllib.request, urllib.parse, pathlib, datetime, re, html
+import anthropic
 from zoneinfo import ZoneInfo
 
 BASE = pathlib.Path('/home/victor/mail-agent')
@@ -10,7 +11,7 @@ LOG = BASE / 'logs' / 'draft.log'
 
 MATON_API_KEY = os.environ.get('MATON_API_KEY')
 MATON_CONNECTION_ID = os.environ.get('MATON_CONNECTION_ID')
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY')
 
 MY_EMAIL = 'vh@essdenmark.dk'
 TZ = ZoneInfo('Europe/Copenhagen')
@@ -30,8 +31,8 @@ LOG.parent.mkdir(parents=True, exist_ok=True)
 if not MATON_API_KEY or not MATON_CONNECTION_ID:
     print('ERROR: MATON env vars missing')
     raise SystemExit(1)
-if not OPENAI_API_KEY:
-    print('ERROR: OPENAI_API_KEY missing')
+if not ANTHROPIC_API_KEY:
+    print('ERROR: ANTHROPIC_API_KEY missing')
     raise SystemExit(1)
 if not QUEUE.exists():
     print('No queue file yet')
@@ -126,7 +127,7 @@ def openai_generate_reply(*, lang: str, sender_name: str, subject: str, email_te
         ex_txt += f"\n\n--- EKSEMPEL {i} (tidligere sendt stil) ---\nEmne: {e['subject']}\nBody (udsnit):\n{body}\n"
 
     if lang == 'da':
-        sys = (
+        system_text = (
             "Du skriver en personlig email-reply som Victor Hertz (ESS). Output er en kladde-tekst, ikke send. "
             "Skriv dansk medmindre indgående mail tydeligt er på engelsk.\n\n"
             "Krav:\n"
@@ -141,7 +142,7 @@ def openai_generate_reply(*, lang: str, sender_name: str, subject: str, email_te
             "Returnér kun selve email-teksten (ingen forklaringer)."
         )
     else:
-        sys = (
+        system_text = (
             "Write a personalized reply email as Victor Hertz (ESS). Draft only, never send.\n"
             "Requirements: direct 1-2 line conclusion, reference 2 concrete details, 3-7 bullets, max 1 question, no unverified claims.\n"
             "End with this exact signature:\n" + SIGNATURE + "\n"
@@ -149,7 +150,7 @@ def openai_generate_reply(*, lang: str, sender_name: str, subject: str, email_te
             "Return only the email text."
         )
 
-    user = (
+    user_text = (
         f"Sender name: {sender_name}\n"
         f"Received: {received_dt}\n"
         f"Subject: {subject}\n\n"
@@ -157,38 +158,15 @@ def openai_generate_reply(*, lang: str, sender_name: str, subject: str, email_te
         f"{email_text}"
     )
 
-    payload = {
-        "model": "gpt-5.2",
-        "input": [
-            {"role": "system", "content": [{"type": "input_text", "text": sys}]},
-            {"role": "user", "content": [{"type": "input_text", "text": user}]}
-        ],
-        "max_output_tokens": 900
-    }
-
-    req = urllib.request.Request(
-        'https://api.openai.com/v1/responses',
-        data=json.dumps(payload).encode('utf-8'),
-        method='POST'
+    claude = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    response = claude.messages.create(
+        model="claude-opus-4-6",
+        max_tokens=900,
+        system=system_text,
+        messages=[{"role": "user", "content": user_text}],
     )
-    req.add_header('Authorization', f'Bearer {OPENAI_API_KEY}')
-    req.add_header('Content-Type', 'application/json')
 
-    with urllib.request.urlopen(req, timeout=60) as r:
-        data = json.load(r)
-
-    txt = (data.get('output_text') or '').strip()
-    if txt:
-        return txt
-
-    # Fallback: reconstruct from output items
-    out = []
-    for item in data.get('output', []) or []:
-        for c in item.get('content', []) or []:
-            t = c.get('type')
-            if t in ('output_text', 'text') and c.get('text'):
-                out.append(c['text'])
-    return ('\n'.join(out)).strip()
+    return next((b.text for b in response.content if b.type == "text"), "").strip()
 
 
 def text_to_html_with_italic_signature(text: str) -> str:
