@@ -36,5 +36,20 @@
     }
   },
   "skipDangerousModePermissionPrompt": true,
-  "autoUpdatesChannel": "latest"
+  "autoUpdatesChannel": "latest",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/victor/bin/auto-branch.sh",
+            "timeout": 30,
+            "statusMessage": "Synkroniserer ændringer til GitHub...",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
 }
