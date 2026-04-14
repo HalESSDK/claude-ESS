@@ -113,7 +113,7 @@ def load_training_examples(max_examples=10):
     return ex
 
 
-def openai_generate_reply(*, lang: str, sender_name: str, subject: str, email_text: str, received_dt: str):
+def generate_reply(*, lang: str, sender_name: str, subject: str, email_text: str, received_dt: str):
     # Keep input bounded.
     email_text = (email_text or '').strip()
     if len(email_text) > 12000:
@@ -221,7 +221,7 @@ with QUEUE.open('r', encoding='utf-8') as f, LOG.open('a', encoding='utf-8') as 
             lang = pick_language(subj, preview)
             first = sender_first_name(from_name)
 
-            draft_text = openai_generate_reply(
+            draft_text = generate_reply(
                 lang=lang,
                 sender_name=first or from_name or 'there',
                 subject=subj,
