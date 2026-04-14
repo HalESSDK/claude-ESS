@@ -41,5 +41,39 @@ __pycache__/
 # Skills interne filer
 skills/**/.clawhub/
 
-# System
+# System og dotfiles
 .DS_Store
+.bash_history
+.bash_logout
+.bashrc
+.profile
+.sudo_as_admin_successful
+.nuxtrc
+
+# Package managers og caches
+.bun/
+.npm/
+.cache/
+.local/
+.config/
+
+# SSH (aldrig commit)
+.ssh/
+
+# Claude interne state
+.claude-mem/
+.claude.json
+.claude/file-history/
+.claude/paste-cache/
+.claude/tasks/
+.claude/debug/
+.claude/channels/*/bot.pid
+
+# Openclaw
+.openclaw/
+
+# Externe/installerede projekter (ikke vores kode)
+/agents/
+whisper-venv/
+/agent-ui/
+/claude-code-agents-ui/
