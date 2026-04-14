@@ -1,1 +1,40 @@
-{}
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
+  "enabledPlugins": {
+    "business-analytics@claude-code-workflows": true,
+    "hr-legal-compliance@claude-code-workflows": true,
+    "customer-sales-automation@claude-code-workflows": true,
+    "content-marketing@claude-code-workflows": true,
+    "startup-business-analyst@claude-code-workflows": true,
+    "agent-orchestration@claude-code-workflows": true,
+    "agent-teams@claude-code-workflows": true,
+    "conductor@claude-code-workflows": true,
+    "claude-mem@thedotmack": true,
+    "superpowers@superpowers-marketplace": true,
+    "telegram@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-workflows": {
+      "source": {
+        "source": "github",
+        "repo": "wshobson/agents"
+      }
+    },
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "autoUpdatesChannel": "latest"
+}
