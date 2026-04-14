@@ -67,12 +67,13 @@ skills/**/.clawhub/
 .claude/paste-cache/
 .claude/tasks/
 .claude/debug/
+.claude/channels/*/bot.pid
 
 # Openclaw
 .openclaw/
 
 # Externe/installerede projekter (ikke vores kode)
-agents/
+/agents/
 whisper-venv/
-agent-ui/
-claude-code-agents-ui/
+/agent-ui/
+/claude-code-agents-ui/
