@@ -2,6 +2,22 @@
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
+  "model": "opus[1m]",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup /home/victor/bin/auto-branch.sh > /tmp/auto-branch.log 2>&1 &",
+            "timeout": 5,
+            "statusMessage": "Synkroniserer ændringer til GitHub...",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "business-analytics@claude-code-workflows": true,
     "hr-legal-compliance@claude-code-workflows": true,
@@ -35,21 +51,6 @@
       }
     }
   },
-  "skipDangerousModePermissionPrompt": true,
   "autoUpdatesChannel": "latest",
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "nohup /home/victor/bin/auto-branch.sh > /tmp/auto-branch.log 2>&1 &",
-            "timeout": 5,
-            "statusMessage": "Synkroniserer ændringer til GitHub...",
-            "async": true
-          }
-        ]
-      }
-    ]
-  }
+  "skipDangerousModePermissionPrompt": true
 }
