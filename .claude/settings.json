@@ -29,7 +29,8 @@
     "conductor@claude-code-workflows": true,
     "claude-mem@thedotmack": true,
     "superpowers@superpowers-marketplace": true,
-    "telegram@claude-plugins-official": true
+    "telegram@claude-plugins-official": true,
+    "andrej-karpathy-skills@karpathy-skills": true
   },
   "extraKnownMarketplaces": {
     "claude-code-workflows": {
@@ -48,6 +49,12 @@
       "source": {
         "source": "github",
         "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
       }
     }
   },
